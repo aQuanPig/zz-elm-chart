@@ -5,7 +5,8 @@ import actions from './actions'
 Vue.use(Vuex)
 
 const state = {
-  currentCity:{}
+  currentCity:{},
+  currentAddress:{}
 }
 
 export default new Vuex.Store({

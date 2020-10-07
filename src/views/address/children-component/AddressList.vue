@@ -5,7 +5,7 @@
       <div
         class="list-item"
         v-for="item in showAddress"
-        :key="item.geohash"
+        :key="item.address"
         @click="clickAddress(item)"
         @keyup.enter="clickAddress(item)"
       >
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { GETCURRENTADDRESS } from 'store/constants'
 export default {
   name: 'AddressList',
   props: {
@@ -44,7 +45,8 @@ export default {
     clickAddress(address) {
       this.addressList.push(address)
       sessionStorage.setItem('address', JSON.stringify(this.addressList))
-      this.$router.push("/home")
+      this.$store.commit(GETCURRENTADDRESS, address)
+      this.$router.push('/main')
     },
     clearAll() {
       this.addressList = []

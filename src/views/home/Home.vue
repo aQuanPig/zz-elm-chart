@@ -1,20 +1,7 @@
 <template>
   <div>
-    <!-- 导航 -->
-    <tab-bar>
-      <template #left>
-        <van-icon class-prefix="iconfont" name="sousuo1" />
-      </template>
-      <template #center>
-        <p>汇丰大酒店</p>
-      </template>
-      <template #right>
-        <p>登录/注册</p>
-      </template>
-    </tab-bar>
     <!-- 轮播图 -->
-    <van-swipe class="swiper"
-              indicator-color="#3190e8">
+    <van-swipe class="swiper" indicator-color="#3190e8">
       <van-swipe-item v-for="(item,index) in 2" :key="item" class="swiper-item">
         <div v-for="item1 in swiperInfo.slice(index*8,(index+1)*8)" :key="item1.id" class="item">
           <img v-lazy="baseUrl + item1.image_url" alt />
@@ -23,33 +10,49 @@
       </van-swipe-item>
     </van-swipe>
     <!-- 附近商家 -->
-    <store-item></store-item>
+    <div class="header">
+      <van-icon class-prefix="iconfont" name="shangjia" />
+      <span class="nearby">附近商家</span>
+    </div>
+    <store-item :shop-list="shopList"></store-item>
   </div>
 </template>
 
 <script>
-import TabBar from 'components/tabbar/TabBar'
 import StoreItem from 'components/storeItem/StoreItem'
 
 import swiper from '../../initData/entryPic'
+import { getShoppingRestaurants } from 'service/shopping'
 export default {
   name: 'Home',
   components: {
-    TabBar,
-    StoreItem
+    StoreItem,
   },
   data() {
     return {
       baseUrl: 'https://fuss10.elemecdn.com',
       swiperInfo: swiper,
+      shopList: [],
     }
+  },
+  methods: {
+    getRestaurantsList() {
+      const { latitude, longitude } = this.$store.state.currentAddress
+      getShoppingRestaurants(latitude, longitude).then((res) => {
+        console.log(res)
+        this.shopList = res
+      })
+    },
+  },
+  mounted() {
+    this.getRestaurantsList()
   },
 }
 </script>
 
 <style lang="less" scoped>
 .swiper {
-  margin-top: 46px;
+  padding-top: 20px;
   background-color: #fff;
   display: flex;
   .swiper-item {
@@ -64,10 +67,21 @@ export default {
       width: 40px;
     }
     .title {
-      color: #9195A3;
+      color: #9195a3;
       font-size: 12px;
       margin-top: 6px;
     }
+  }
+}
+.header {
+  color: #afafaf;
+  padding: 10px;
+  .iconfont-shangjia {
+    font-size: 15px;
+  }
+  .nearby {
+    font-size: 12px;
+    margin-left: 5px;
   }
 }
 </style>
