@@ -21,7 +21,7 @@ export default {
 <style lang="less" scoped>
   .tabbar {
     height: 46px;
-    background-color: #3190e8;
+    background: linear-gradient(to right, #fb7c75, #dd5a6a, #b7325d);
     display: flex;
     align-items: center;
     color: #fff;

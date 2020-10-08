@@ -16,10 +16,18 @@ export default {
     }
   },
   mounted() {
-    this.scroll = new BScroll(this.$refs.wrapper, {
-      click: true,
+    this.$nextTick(() => {
+      this.scroll = new BScroll(this.$refs.wrapper, {
+        click: true,
+      })
+      console.log(this.scroll)
     })
-    console.log(this.scroll)
+  },
+  methods: {
+    refresh() {
+      this.scroll && this.scroll.refresh()
+      console.log('kkkk')
+    },
   },
 }
 </script>

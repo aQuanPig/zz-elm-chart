@@ -162,11 +162,11 @@ export default {
       }
       .mode {
         background-color: #fff;
-        color: #57a9ff;
+        color: #d75368;
         border: 1px solid;
       }
       .mode1 {
-        background-color: #298eeb;
+        background-color:#d75368;
         color: #f5f5f5;
         line-height: 14px;
       }
@@ -188,7 +188,7 @@ export default {
         color: #666;
       }
       .minute {
-        color: #298eeb;
+        color: #d75368;
         font-size: 12px;
       }
     }

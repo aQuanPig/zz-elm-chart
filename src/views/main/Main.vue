@@ -1,7 +1,8 @@
 <template>
   <div>
     <!-- 头部 -->
-    <main-header></main-header>
+    <main-header v-show="$route.path === '/main/home'? true :false"></main-header>
+    
     <router-view></router-view>
     <!-- 底部 -->
     <main-footer></main-footer>
@@ -12,10 +13,10 @@
 import MainFooter from './children-component/MainFooter'
 import MainHeader from './children-component/MainHeader'
 export default {
-  name:"Main",
-  components:{
+  name: 'Main',
+  components: {
     MainFooter,
     MainHeader
-  }
+  },
 }
 </script>
