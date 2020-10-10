@@ -12,14 +12,28 @@
         <i class="iconfont iconfont-lishijilu"></i>
         <span>历史搜索</span>
       </div>
-      <div class="hotList">
-        <p class="list-item" v-for="(item,index) in hotList" :key="index">{{item}}</p>
+      <div class="history" v-if="historyList.length !== 0">
+        <!-- <p class="list-item" v-for="(item,index) in hotList" :key="index">{{item}}</p> -->
+        <div class="item" v-for="(item,index) in historyList" :key="index">
+          <van-tag
+            round
+            closeable
+            size="large"
+            color="#ededed"
+            text-color="#6c8eb7"
+            @close="closeTag(index)"
+          >{{item}}</van-tag>
+        </div>
+      </div>
+      <div v-else class="noHistory">
+        <van-tag mark color="#ffe1e1" text-color="#ad0000">暂时还没有搜索记录哦~( ･´ω`･ )</van-tag>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { Dialog } from 'vant'
 export default {
   name: 'SearchInput',
   data() {
@@ -34,9 +48,36 @@ export default {
         '饭',
         '兰州拉面',
         '饭',
-        '兰州拉面',
       ],
+      historyList: [],
     }
+  },
+  mounted() {
+    this.historyList = JSON.parse(sessionStorage.getItem('historySearch')).slice(0,9) || []
+  },
+  methods: {
+    closeTag(index) {
+      console.log('关闭啦')
+      Dialog.confirm({
+        message: '确认删除该记录',
+      })
+        .then(() => {
+          this.historyList.splice(index, 1)
+          
+          // 引入 Toast 组件后，会自动在 Vue 的 prototype 上挂载 $toast 方法，便于在组件内调用。
+          this.$toast({
+            message: '删除成功',
+            position: 'top',
+          })
+          sessionStorage.setItem("historySearch",JSON.stringify(this.historyList))
+        })
+        .catch(() => {
+          this.$toast({
+            message: '取消删除',
+            position: 'top',
+          })
+        })
+    },
   },
 }
 </script>
@@ -76,16 +117,31 @@ export default {
     display: flex;
     flex-wrap: wrap;
     .list-item {
-      margin-left: 10px;
-      margin-top: 5px;
+      margin: 5px;
       background-color: #ededed;
       padding: 5px 15px;
       color: #23bfb2;
       border-radius: 20px;
+      font-size: 14px;
     }
   }
   .history {
-    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    padding: 0 10px;
+    .item {
+      margin: 5px;
+    }
+  }
+  .noHistory {
+    margin: 10px;
+    padding: 0 10px;
+    span {
+      width: 100%;
+      padding: 5px;
+      font-size: 14px;
+    }
   }
 }
 </style>

@@ -1,5 +1,7 @@
 import Vue from 'vue'
-import { IndexBar, IndexAnchor, Cell, Icon, Field, Button, Swipe, SwipeItem, Lazyload, Rate } from 'vant'
+import { IndexBar, IndexAnchor, Cell, Icon, Field, Button, Swipe, SwipeItem, Lazyload, Rate, Tag, Toast } from 'vant'
+Vue.use(Toast);
+Vue.use(Tag);
 Vue.use(IndexBar);
 Vue.use(IndexAnchor);
 Vue.use(Cell);

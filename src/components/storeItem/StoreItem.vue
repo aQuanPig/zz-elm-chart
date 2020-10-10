@@ -1,11 +1,7 @@
 <template>
   <div>
-    <div class="list-item" v-for="item in shopList" :key="item.id">
-      <img
-        :src="getRandomUrl()"
-        alt
-        class="img"
-      />
+    <div class="list-item" v-for="(item,index) in shopList" :key="index">
+      <img :src="getRandomUrl()" alt class="img" @load="loadImg(index)" />
       <div class="info">
         <div class="top">
           <div class="left">
@@ -14,7 +10,11 @@
             <h4 class="text-nowrap name">{{item.name || "bigbang韩国炸鸡(光华北店)"}}</h4>
           </div>
           <div class="right">
-            <span class="item" v-for="support in item.supports" :key="support.id">{{support.icon_name}}</span>
+            <span
+              class="item"
+              v-for="support in item.supports"
+              :key="support.id"
+            >{{support.icon_name}}</span>
           </div>
         </div>
         <div class="center">
@@ -32,9 +32,12 @@
             <span class="sell">月售{{item.recent_order_num}}单</span>
           </div>
           <div class="right">
-            <p
+            <!-- <p
               class="mode deliver"
               :class="item.delivery_mode.text === '蜂鸟专送'?'model':'model1'"
+            >{{item.delivery_mode && item.delivery_mode.text}}</p> -->
+            <p
+              class="mode1 deliver"
             >{{item.delivery_mode && item.delivery_mode.text}}</p>
           </div>
         </div>
@@ -74,6 +77,7 @@ export default {
       baseUrl: 'https://fuss10.elemecdn.com/',
       value: 4.4,
       picUrl: picUrl,
+      index:1
     }
   },
   methods: {
@@ -81,6 +85,14 @@ export default {
       const length = picUrl.length
       const index = Math.floor(Math.random() * length)
       return picUrl[index]
+    },
+    loadImg() {
+      const length = this.shopList.length
+      this.index++
+      if (this.index === length) {
+        console.log('图片渲染完成')
+        this.$emit("loadImg")
+      }
     },
   },
 }
@@ -99,7 +111,7 @@ export default {
   height: 64px;
 }
 .info {
-  flex:1 ;
+  flex: 1;
   padding-left: 10px;
   .top {
     display: flex;
@@ -166,7 +178,7 @@ export default {
         border: 1px solid;
       }
       .mode1 {
-        background-color:#d75368;
+        background-color: #d75368;
         color: #f5f5f5;
         line-height: 14px;
       }

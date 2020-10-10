@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- 头部 -->
-    <main-header v-show="$route.path === '/main/home'? true :false"></main-header>
-    
+    <main-header v-if="$route.path === '/main/home'? true :false"></main-header>
+
     <router-view></router-view>
     <!-- 底部 -->
     <main-footer></main-footer>
@@ -16,7 +16,10 @@ export default {
   name: 'Main',
   components: {
     MainFooter,
-    MainHeader
+    MainHeader,
+  },
+  destroyed() {
+    console.log('组件三生三世')
   },
 }
 </script>

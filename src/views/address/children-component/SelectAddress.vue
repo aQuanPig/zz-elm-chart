@@ -30,7 +30,7 @@ export default {
 }
 .btn {
   margin-top: 10px;
-  background-color: #3190e8;
+  background-color: #e05e6b;
   color: #fff;
   width: 100%;
   height: 30px;

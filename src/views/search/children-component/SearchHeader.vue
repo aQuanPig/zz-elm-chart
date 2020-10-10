@@ -12,6 +12,7 @@
         placeholder="请输入商家或美食名称"
         class="search"
         @input="inputChange"
+        @keyup.enter="inputClick"
       />
       <i class="iconfont iconfont-quxiao1" v-show="isActive" @click="cancleValue"></i>
     </div>
@@ -22,14 +23,21 @@
 import { debounce } from 'utils'
 export default {
   name: 'SearchHeader',
+  props: ['keyword'],
   data() {
     return {
       value: '',
-      isActive: false
+      isActive: false,
+      historySearch: null,
     }
   },
-  created() {
+  mounted() {
+    this.historySearch =
+      JSON.parse(sessionStorage.getItem('historySearch')) || []
     debounce(this.inputChange, 400)
+  },
+  created() {
+    this.$route.params.keyword && (this.value = this.$route.params.keyword)
   },
   methods: {
     inputChange() {
@@ -38,6 +46,14 @@ export default {
     cancleValue() {
       this.value = ''
       this.isActive = false
+    },
+    inputClick() {
+      this.historySearch.push(this.value)
+      sessionStorage.setItem(
+        'historySearch',
+        JSON.stringify(this.historySearch)
+      )
+      this.$emit("searchStart",this.value)
     },
   },
 }
@@ -61,12 +77,12 @@ export default {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #7495b761;
+    background-color: #b72a3c40;
   }
 }
 .input {
   position: absolute;
-  top: 108px;
+  top: 112px;
   left: 50%;
   transform: translateX(-50%);
   width: 70vw;

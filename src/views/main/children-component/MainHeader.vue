@@ -8,11 +8,13 @@
       <i class="iconfont iconfont-icon_notice"></i>
     </div>
     <div class="search-box">
+      <i class="iconfont iconfont-sousuo1"></i>
       <input
         type="text"
         class="search"
-        placeholder="♥ 搜索商家，商品名称"
+        placeholder="搜索商家，商品名称"
         @input="changeInput"
+        @keyup.enter="inputClick"
         v-model="value"
       />
       <i class="iconfont iconfont-quxiao1" v-show="isActive" @click="cancleClick"></i>
@@ -28,11 +30,11 @@ export default {
     return {
       isActive: false,
       value: '',
-      deounce:null
+      deounce: null,
     }
   },
-  created(){
-    this.changeInput = debounce(this.changeInput,400)
+  created() {
+    this.changeInput = debounce(this.changeInput, 400)
   },
   methods: {
     changeInput() {
@@ -42,17 +44,25 @@ export default {
       this.value = ''
       this.isActive = false
     },
-    changeAddress(){
-      this.$router.push("/")
-    }
-  },
+    changeAddress() {
+      this.$router.push('/')
+    },
+    inputClick() {
+      this.$router.push(`/main/search/${this.value}`)
+      this.value = ''
+    },
+  }
 }
 </script>
 
 <style lang="less" scoped>
 .header {
   height: 82px;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
   background: linear-gradient(to right, #fb7c75, #dd5a6a, #b7325d);
 }
 .address {
@@ -85,6 +95,7 @@ export default {
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 80vw;
   z-index: 9;
   background-color: #fcfcfc;
@@ -93,15 +104,17 @@ export default {
     background-color: #fcfcfc;
     width: 50vw;
     height: 40px;
+    font-size: 15px;
+    margin-left: 5px;
     &::placeholder {
       color: #a39391;
     }
   }
   .iconfont-quxiao1 {
-    color: #333;
+    color: #bdb2b2;
     position: absolute;
     top: 11px;
-    right: 38px;
+    right: 22px;
   }
 }
 </style>

@@ -117,7 +117,7 @@ export default {
     }
   }
   .hot {
-    color: #3190e8;
+    color: #e05e6b;
   }
 }
 .all-list-title {

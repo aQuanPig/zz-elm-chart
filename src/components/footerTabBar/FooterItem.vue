@@ -19,7 +19,6 @@ export default {
   },
   methods: {
     changePath() {
-      console.log(this.$route.path)
       this.$router.push(this.path)
     },
   },

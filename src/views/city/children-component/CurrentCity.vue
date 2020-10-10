@@ -59,7 +59,7 @@ export default {
     border-bottom: 2px solid #e4e4e4;
     height: 30px;
     .left {
-      color: #3190e8;
+      color: #e05e6b;
       font-weight: 600;
       font-size: 14px;
       padding-left: 10px;

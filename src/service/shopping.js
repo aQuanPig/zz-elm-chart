@@ -11,3 +11,13 @@ export function getShoppingRestaurants(latitude,longitude,offset=0,limit=20){
     }
   })
 }
+
+export function getRestaurantsList(geohash,keyword){
+  return request({
+    url:"/v4/restaurants",
+    params:{
+      geohash,
+      keyword
+    }
+  })
+}
