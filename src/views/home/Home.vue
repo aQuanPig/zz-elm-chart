@@ -15,7 +15,7 @@
         <van-icon class-prefix="iconfont" name="shangjia" />
         <span class="nearby">附近商家</span>
       </div>
-      <store-item :shop-list="shopList" @loadImg="loadImg"></store-item>
+      <store-item :shop-list="shopList" @loadImg="loadImg" @shopClick="shopClick"></store-item>
     </scroll>
   </div>
 </template>
@@ -57,6 +57,11 @@ export default {
     onPullingUp() {
       this.getRestaurantsList(this.offset * this.page)
     },
+    shopClick(id){
+      console.log('点击啦',id)
+      // this.$router.push(`/detail/${id}`)
+      this.$router.push(`/detail/${1}`)
+    }
   },
   mounted() {
     this.getRestaurantsList(0)

@@ -21,3 +21,9 @@ export function getRestaurantsList(geohash,keyword){
     }
   })
 }
+
+export function getRestaurantDeatil(shopid){
+  return request({
+    url:`/shopping/restaurant/${shopid}`
+  })
+}

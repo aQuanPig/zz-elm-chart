@@ -5,10 +5,7 @@
     <scroll class="wrapper" ref="wrapper">
       <!-- 搜索框 -->
       <search-list v-if="isShow"></search-list>
-      <store-item v-else 
-                  :shop-list="searchList" 
-                  class="searchList"
-                  @loadImg="loadImg"></store-item>
+      <store-item v-else :shop-list="searchList" class="searchList" @loadImg="loadImg"></store-item>
     </scroll>
   </div>
 </template>
@@ -26,14 +23,14 @@ export default {
     SearchHeader,
     SearchList,
     Scroll,
-    StoreItem
+    StoreItem,
   },
   data() {
     return {
       isShow: true,
       geohash: '',
-      searchList:[],
-      index:1
+      searchList: [],
+      index: 1,
     }
   },
   methods: {
@@ -42,15 +39,22 @@ export default {
     },
     getSearchRestaurantsList(geohash, keyword) {
       getRestaurantsList(geohash, keyword).then((res) => {
-        this.searchList = res
-        this.isShow = false
+        if (res.status === 0) {
+          this.isShow = true
+          this.searchList = []
+          this.$toast({
+            message:'搜索失败，请重新搜索'
+          })
+        } else {
+          this.searchList = res
+          this.isShow = false
+        }
       })
     },
-    loadImg(){
+    loadImg() {
       this.$refs.wrapper.refresh()
       console.log('图片ing')
-      
-    }
+    },
   },
   mounted() {
     this.geohash = this.$store.state.currentAddress.geohash

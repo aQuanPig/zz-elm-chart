@@ -53,3 +53,14 @@ body, textarea, select, input, button {
   overflow: hidden;
   white-space: nowrap;
 }
+/* 清除浮动 */
+.clearfix:after,.clearfix:before{
+  content: "";
+  display: table;
+}
+.clearfix:after{
+  clear: both;
+}
+.clearfix{
+  *zoom: 1;
+}

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="list-item" v-for="(item,index) in shopList" :key="index">
+  <div v-show="shopList.length!== 0">
+    <div class="list-item" v-for="(item,index) in shopList" :key="index" @click="shopClick(item.id)">
       <img :src="getRandomUrl()" alt class="img" @load="loadImg(index)" />
       <div class="info">
         <div class="top">
@@ -90,10 +90,12 @@ export default {
       const length = this.shopList.length
       this.index++
       if (this.index === length) {
-        console.log('图片渲染完成')
         this.$emit("loadImg")
       }
     },
+    shopClick(id){
+      this.$emit("shopClick",id)
+    }
   },
 }
 </script>

@@ -97,6 +97,7 @@ export default {
     width: 84%;
     background-color: #fff;
     margin-left: 5px;
+    z-index: 9;
   }
   .iconfont-quxiao1 {
     color: #bdb2b2;
